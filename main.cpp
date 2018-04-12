@@ -10,7 +10,7 @@ int main() {
     }
     std::cout<< "start sort"<< std::endl;
     
-    auto time = ArrayHelper::test_time("select sort" , ArrayHelper::select_sort, res , arr_len); 
+    auto time = ArrayHelper::test_time("select sort" , ArrayHelper::insert_sort, res , arr_len); 
 
     for(int i = 0 ; i < arr_len; i++){
         std::cout << res[i] << std::endl;

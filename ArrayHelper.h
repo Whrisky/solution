@@ -37,6 +37,16 @@ namespace ArrayHelper{
     
     }
 
+    void insert_sort(int arr[] , int arr_len){
+        for(int i =0 ; i < arr_len ; i ++){
+            int max_index = i + 1;
+            for(int j = max_index ; j > 0 ; j -- ){
+                    if(arr[i] > arr[j])
+                        std :: swap(arr[i] , arr[j]);
+            }
+        }
+    }
+
     template<typename T>
      double test_time (string name , void ( *sort)(T[] , int), T arr[] , int n){
             clock_t start_time = clock();
