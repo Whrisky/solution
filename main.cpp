@@ -1,14 +1,21 @@
-#include <iostream>
-#include "SortTestHelper.h"
-#include "sort.h"
+#include <iostream>     // std::cout
+#include "ArrayHelper.h"
 
-#ifndef SELECTIONSORT_STUDENT_H
-#define SELECTIONSORT_STUDENT_H
+int main() {
 
-using namespace std;
+    int arr_len = 10;
+    int *res = ArrayHelper::array_random(1,  20, arr_len);
+    for(int i = 0 ; i < arr_len; i++){
+        std::cout << res[i] << std::endl;
+    }
+    std::cout<< "start sort"<< std::endl;
+    
+    auto time = ArrayHelper::test_time("select sort" , ArrayHelper::select_sort, res , arr_len); 
 
-int main (){
-    int a[10] = {19, 9, 3 , 5, 6, 3};
-    select_sort(a , 6);
-
+    for(int i = 0 ; i < arr_len; i++){
+        std::cout << res[i] << std::endl;
+    }
+    delete[] res;
+    return 0;
 }
+
