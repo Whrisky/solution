@@ -8,12 +8,17 @@ int main() {
     for(int i = 0 ; i < arr_len; i++){
         std::cout << res[i] << std::endl;
     }
+    for(int i = 0 ; i < arr_len; i++){
+        std::cout << res[i] << " ";
+        
+    }
     std::cout<< "start sort"<< std::endl;
     
-    auto time = ArrayHelper::test_time("select sort" , ArrayHelper::insert_sort, res , arr_len); 
+    auto time = ArrayHelper::test_time("merge sort" , ArrayHelper::merge_sort, res , arr_len); 
 
     for(int i = 0 ; i < arr_len; i++){
-        std::cout << res[i] << std::endl;
+        std::cout << res[i] << " ";
+
     }
     delete[] res;
     return 0;
