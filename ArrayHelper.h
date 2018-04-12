@@ -38,7 +38,7 @@ namespace ArrayHelper{
     }
 
     void insert_sort(int arr[] , int arr_len){
-        for(int i =0 ; i < arr_len ; i ++){
+        for(int i =0 ; i < arr_len - 1; i ++){
             int max_index = i + 1;
             for(int j = max_index ; j > 0 ; j -- ){
                     if(arr[i] > arr[j])
