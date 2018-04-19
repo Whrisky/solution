@@ -1,6 +1,8 @@
 //
 // Created by yym on 2018/4/10.
 //
+#ifndef _ARRAYHELPER_
+#define _ARRAYHELPER_
 
 #include <cstdlib>
 #include <ctime>
@@ -40,11 +42,11 @@ namespace ArrayHelper{
     }
 
     void insert_sort(int arr[] , int arr_len){
-        for(int i =0 ; i < arr_len - 1; i ++){
-            int max_index = i + 1;
+        for(int i = 1 ; i < arr_len ; i ++){
+            int max_index = i;
             for(int j = max_index ; j > 0 ; j -- ){
-                    if(arr[i] > arr[j])
-                        std :: swap(arr[i] , arr[j]);
+                    if(arr[j-1] > arr[j])
+                        std :: swap(arr[j] , arr[j-1]);
             }
         }
     }
@@ -146,6 +148,7 @@ namespace ArrayHelper{
         //if(partition < arr_len) merge_divide(arr , arr_len, partition * 2);
         
     }
+    
     // [0, n) , log2 N , 
     void merge_divide2(int arr[] , int l , int h ){
         int len = h - l;
@@ -183,3 +186,5 @@ namespace ArrayHelper{
         return true;
      }
 };
+
+#endif
