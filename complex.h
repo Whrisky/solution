@@ -1,5 +1,5 @@
-#ifndef _COMPLEX_
-#define _COMPLEX_
+#ifndef __COMPLEX__
+#define __COMPLEX__
 class complex{
     public:
     complex(double r, double i)
