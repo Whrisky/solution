@@ -10,10 +10,12 @@
 #include <iostream>
 #include <vector>
 
+
 #ifndef EXERCISE_RANDOMARRAY_H
 #define EXERCISE_RANDOMARRAY_H
 
 #endif //EXERCISE_RANDOMARRAY_H
+using namespace std;
 using std::string;
 using std::vector;
 namespace ArrayHelper{
@@ -50,8 +52,41 @@ namespace ArrayHelper{
             }
         }
     }
+    //[l+1,i) [i,j)
+    int _partition(int arr[], int l, int r){
+        int p = arr[l];
+        int i = l + 1, j = l + 1;
+        for(int k = l+1 ; k < r; k++){
+            if(arr[k] < p){
+                swap(arr[i], arr[k]);
+                i ++ ;
+                j ++ ;
+            }else{
+                j ++ ;
+            }
+        }
+        // [l,i-1) p [i,r)
+        swap(arr[i-1], arr[l]);
+        return i-1;
+    }
+//[l, p),
+    void _quick_sort(int arr[], int l , int r){
+        if(r - l <= 1) return;
+        int p = _partition(arr , l , r);
+         for(int i = l ; i <r; i++){
+        std::cout << arr[i] << " ";
 
-    
+        }
+        std::cout<<"\n";
+        _quick_sort(arr, l , p);
+        _quick_sort(arr, p+1, r);
+    }
+    void quick_sort(int arr[], int arr_len){
+        _quick_sort(arr , 0, arr_len);
+    }
+
+
+
 
     //[low,mid),[mid, hig) 分而治之，此为治
     void merge_process(int arr[] ,int low , int hig){
