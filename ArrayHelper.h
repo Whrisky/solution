@@ -19,18 +19,6 @@ using namespace std;
 using std::string;
 using std::vector;
 namespace ArrayHelper{
-    //[range_l , range_r]
-    int* array_random(int range_l ,int range_r , int size){
-        int* ret = new int[size];
-        srand(time(NULL));
-        for(int i = 0 ; i < size ; i ++){
-            ret[i] = rand() % (range_r - range_l + 1) + range_l;
-        }
-
-        return ret;
-
-
-    }
 
     void select_sort(int arr[] , int arr_len){
         for(int i = 0; i < arr_len - 1; i ++){
@@ -54,6 +42,9 @@ namespace ArrayHelper{
     }
     //[l+1,i) [i,j)
     int _partition(int arr[], int l, int r){
+        srand(time(NULL));
+        int sr = rand()%(r  - l) + l;
+        swap(arr[l], arr[sr]);
         int p = arr[l];
         int i = l + 1, j = l + 1;
         for(int k = l+1 ; k < r; k++){
@@ -73,19 +64,81 @@ namespace ArrayHelper{
     void _quick_sort(int arr[], int l , int r){
         if(r - l <= 1) return;
         int p = _partition(arr , l , r);
-         for(int i = l ; i <r; i++){
-        std::cout << arr[i] << " ";
-
-        }
-        std::cout<<"\n";
         _quick_sort(arr, l , p);
         _quick_sort(arr, p+1, r);
     }
     void quick_sort(int arr[], int arr_len){
         _quick_sort(arr , 0, arr_len);
+    
+    
     }
+     //[l,i),(j, r),[l, r) [l, lt)<p ,[gt, r)>p, [lt, gt)=p
+    // vector<int> __patition_threepath(int arr[], int l , int r){
+    //     int p = arr[l];
+    //     int i = l+1 ,j = r-1;
+    //     int lt = l, gt = j;
+    //     while(true){
+    //         while(i < r && arr[i] < p) {
+    //             lt ++ ;
+    //             i ++ ;
+    //         }
+    //         while(j >= l && arr[j] > p){
+    //             gt -- ;
+    //             j -- ;
+    //         }
+    //        if(arr[i] == p) i ++;
+    //        else{    
+    //             swap(arr[j] , arr[gt--]);
+    //              i ++ ; 
+    //        }
+    //        if(arr[j] == p) j --;
+    //        else{
+    //            swap(arr[lt++] , arr[j]);
+    //            j -- ;
+    //        }
+    //        if(i > j) break;
+    //     }
+    //     vector<int> v ;
+    //     v.push_back(lt);
+    //     v.push_back(gt);
+    //     return v;
+    // }
 
+    //[l, lt)<p, [gt, r)>p
+    vector<int> __patition_threepath(int arr[], int l , int r){
 
+        int p = arr[l];
+        int lt = l, gt = r;
+        for(int i = l; i < gt; i ++){
+            if(arr[i] < p) {
+                swap(arr[lt], arr[i]);
+                lt++;
+                --i;
+            }else if( arr[i] > p){
+                swap(arr[i], arr[--gt]);
+                --i;
+            }
+        }
+        vector<int> v ;
+        v.push_back(lt);
+        v.push_back(gt);
+        return v;
+    }
+    void _quick_sort_threepath(int arr[], int l, int r){
+        if(r - l <= 1) return;
+       vector<int> v =  __patition_threepath(arr , l, r);
+       cout << v[0]<<"|" << v[1]<<"\n";
+        for (int i= l; i<r;i++){
+            std::cout<< arr[i]<< "\t";
+        }
+        std::cout<<"\n";
+       _quick_sort(arr , l, v[0]);
+       _quick_sort(arr, v[1] ,r); 
+
+    }
+    void quick_sort_threepath(int arr[], int arr_len){
+       _quick_sort_threepath(arr , 0, arr_len); 
+    }
 
 
     //[low,mid),[mid, hig) 分而治之，此为治
@@ -220,6 +273,17 @@ namespace ArrayHelper{
         }
         return true;
      }
-};
+
+
+    int *array_random(int range_l, int range_r, int size) {
+	    int *ret = new int[size];
+	    srand(time(NULL));
+	    for (int i = 0; i < size; i++) {
+	    	ret[i] = rand() % (range_r - range_l + 1) + range_l;
+	    }
+    
+    	return ret;
+    } 
+}
 
 #endif
