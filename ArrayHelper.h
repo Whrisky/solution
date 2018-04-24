@@ -10,11 +10,6 @@
 #include <iostream>
 #include <vector>
 
-
-#ifndef EXERCISE_RANDOMARRAY_H
-#define EXERCISE_RANDOMARRAY_H
-
-#endif //EXERCISE_RANDOMARRAY_H
 using namespace std;
 using std::string;
 using std::vector;
@@ -72,37 +67,36 @@ namespace ArrayHelper{
     
     
     }
-     //[l,i),(j, r),[l, r) [l, lt)<p ,[gt, r)>p, [lt, gt)=p
-    // vector<int> __patition_threepath(int arr[], int l , int r){
-    //     int p = arr[l];
-    //     int i = l+1 ,j = r-1;
-    //     int lt = l, gt = j;
-    //     while(true){
-    //         while(i < r && arr[i] < p) {
-    //             lt ++ ;
-    //             i ++ ;
-    //         }
-    //         while(j >= l && arr[j] > p){
-    //             gt -- ;
-    //             j -- ;
-    //         }
-    //        if(arr[i] == p) i ++;
-    //        else{    
-    //             swap(arr[j] , arr[gt--]);
-    //              i ++ ; 
-    //        }
-    //        if(arr[j] == p) j --;
-    //        else{
-    //            swap(arr[lt++] , arr[j]);
-    //            j -- ;
-    //        }
-    //        if(i > j) break;
-    //     }
-    //     vector<int> v ;
-    //     v.push_back(lt);
-    //     v.push_back(gt);
-    //     return v;
-    // }
+    //  [l,i),(j, r)          [l, lt)<p ,[gt, r)>p, [lt, gt)=p
+    vector<int> __patition_threepath2(int arr[], int l , int r){
+        int p = arr[l];
+        int i = l+1 ,j = r-1;
+        int lt = l+1, gt = j-1;
+        while(1){
+            while(i < j && arr[i] < p) {
+                lt ++ ;
+                i ++ ;
+            }
+            while(j >= i && arr[j] > p){
+                gt -- ;
+                j -- ;
+            }
+            if(arr[i] == p) i++;
+            else {
+                swap(arr[i], arr[--gt]);
+
+            }
+            if(j < i) break;
+            if(arr[j] == p) j--;
+            else {
+                swap(arr[j] , arr[lt++]);
+
+            }
+           if(j < i) break;   
+        }
+        swap(arr[l], arr[lt-1]);
+        return vector<int> {lt-1 ,gt};
+    }
 
     //[l, lt)<p, [gt, r)>p
     vector<int> __patition_threepath(int arr[], int l , int r){
@@ -126,12 +120,12 @@ namespace ArrayHelper{
     }
     void _quick_sort_threepath(int arr[], int l, int r){
         if(r - l <= 1) return;
-       vector<int> v =  __patition_threepath(arr , l, r);
-       cout << v[0]<<"|" << v[1]<<"\n";
-        for (int i= l; i<r;i++){
-            std::cout<< arr[i]<< "\t";
-        }
-        std::cout<<"\n";
+       vector<int> v =  __patition_threepath2(arr , l, r);
+    //    cout << v[0]<<"|" << v[1]<<"\n";
+    //     for (int i= l; i<r;i++){
+    //         std::cout<< arr[i]<< "\t";
+    //     }
+    //     std::cout<<"\n";
        _quick_sort(arr , l, v[0]);
        _quick_sort(arr, v[1] ,r); 
 
