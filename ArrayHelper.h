@@ -206,8 +206,9 @@ namespace ArrayHelper{
         }
     }
     // 分而治之，此为分
+    // 分而治之，此为分
     void merge_divide(int arr[] , int arr_len , int partition){
-        if (partition > arr_len ){
+        if (partition / 2 > arr_len ){
             return;
         }
         //[0,d)
@@ -217,33 +218,42 @@ namespace ArrayHelper{
             int low = i * partition;
             int hight = low + partition ;
             if(hight > arr_len){
-                 hight = arr_len ;
-
+                hight = arr_len ;
             }
-            merge_process(arr , low, hight);            
-                // [low,hight)
+            merge_process(arr , low, low + partition/2, hight);
+            // [low,hight)
         }
-        if (arr_len % partition != 0){
-           merge_process(arr,  partition*division, arr_len); 
+        if (arr_len != division * partition){
+            auto leftr = division * partition;
+            // 计算最后剩余元素的“mid” 2^k < hight but 2 ^k+1 >= hight
+            auto k = partition / 2;
+            
+            for(; leftr + k  > arr_len ; k /= 2){
+                ;
+            }
+            
+            merge_process(arr , leftr   , leftr+k, arr_len);
         }
         merge_divide(arr, arr_len, partition*2);
-        //if(partition < arr_len) merge_divide(arr , arr_len, partition * 2);
+        
         
     }
     
-    // [0, n) , log2 N , 
+    // [0, n) , log2 N ,
+    /*
     void merge_divide2(int arr[] , int l , int h ){
         int len = h - l;
         if(len > 2){
             merge_divide2(arr , l , l + len/2);
             merge_divide2(arr , l + len/2 , h); 
-            merge_process(arr , l , h);
+            merge_process(arr , l , l + len/2, h);
         }else{
-           merge_process(arr , l , h); 
+           merge_process(arr , l , l + len/2, h);
         }
     }
+     */
     void merge_sort(int arr[] , int arr_len){
-        merge_divide(arr , 0 , 2 );
+        merge_divide(arr , arr_len , 2 );
         // merge_divide(arr , arr_len , 2);
 
     }
