@@ -38,11 +38,18 @@ class MaxHeap{
        }
     }
     public:
-    MaxHeap(int cabacity){
-    // :capacity(cabacity) , count(0), data(new Item[cabacity + 1]){
-        this->capacity = cabacity;
-        count = 0;
-        data = new Item[cabacity + 1];
+    MaxHeap(int cabacity)
+    :capacity(cabacity) , count(0), data(new Item[cabacity + 1]){};
+// [1, size]
+    MaxHeap(int size , Item arr[])
+    :capacity(size), count(size) {
+        data = new Item(1+size);
+        for(int i = 1 ; i <= size; i++){
+            data[i] = arr[i-1];
+        }
+        for(int j = size/2 ; j >= 1 ; j--){
+            __shift_down(j);
+        }
     };
     ~MaxHeap(){
         delete[] data;

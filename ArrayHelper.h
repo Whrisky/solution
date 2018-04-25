@@ -35,6 +35,29 @@ namespace ArrayHelper{
             }
         }
     }
+// 左子树 2*k+1 右子树 2k+2
+    void __shiftdown(int arr[], int arr_len , int k){
+        while(k*2+1 < arr_len){
+            int max = k*2+1;
+            if(k*2+2 < arr_len && arr[k*2+2] > arr[k*2+1]) max = k*2+2;
+            if(arr[max] > arr[k]){
+                swap(arr[max] , arr[k]);
+                k = max;
+            }else break;
+        }
+    }
+    //[0, n)
+    void heap_sort(int arr[], int arr_len){
+        for(int k = (arr_len - 2)/2; k >= 0 ;k--){
+            __shiftdown(arr, arr_len , k);
+        }
+        for(int j = arr_len - 1; j > 0; j--){
+            swap(arr[0] , arr[j]);
+            __shiftdown(arr, j , 0);
+        }
+    }
+
+   
     //[l+1,i) [i,j)
     int _partition(int arr[], int l, int r){
         srand(time(NULL));
@@ -220,7 +243,7 @@ namespace ArrayHelper{
             if(hight > arr_len){
                 hight = arr_len ;
             }
-            merge_process(arr , low, low + partition/2, hight);
+            // merge_process(arr , low, low + partition/2, hight);
             // [low,hight)
         }
         if (arr_len != division * partition){
@@ -232,7 +255,7 @@ namespace ArrayHelper{
                 ;
             }
             
-            merge_process(arr , leftr   , leftr+k, arr_len);
+            // merge_process(arr , leftr   , leftr+k, arr_len);
         }
         merge_divide(arr, arr_len, partition*2);
         
@@ -291,3 +314,7 @@ namespace ArrayHelper{
 }
 
 #endif
+
+
+
+
